@@ -31,7 +31,7 @@ export class FetchDataComponent {
      return;
    }
    this.disabledForm = true;
-  this.http.get<User>("https://localhost:44358/" + 'mutuallikes'+'?userid='+data.userId+'&sex='+data.sex).subscribe(result => {
+  this.http.get<User>("https://mutual-like-server.herokuapp.com/" + 'mutuallikes'+'?userid='+data.userId+'&sex='+data.sex).subscribe(result => {
     this.user = result;
     this.disabledForm = false;
   }, error => {

@@ -1,6 +1,9 @@
-<h1 id="tableLabel">Взаимные лайки</h1>
+<br>
 
-<p>Узнай, с кем обменивается лайками твой друг или знакомый!</p>
+<div class="offset-2">
+    <h1>Узнай, с кем обменивается лайками твой друг или знакомый!</h1>
+</div>
+
 
 <p class="lead" *ngIf="disabledForm">
     Ваш запрос обрабатывается... Это может занять довольно длительное время.
@@ -9,22 +12,23 @@
 </p>
 <pre *ngIf="user">{{ user.data }}</pre>
 
-<form class="form" (ngSubmit)="Search(myform)" #myform="ngForm">
-    <mat-form-field class="col-7" appearance="outline">
+<br>
+<br>
+<form class="form offset-2 col-10" (ngSubmit)="Search(myform)" #myform="ngForm">
+    <mat-form-field class="col-9" appearance="outline">
         <h1>Введите данные</h1>
-        <mat-form-field class="example-full-width offset-1">
-            <mat-label>ID пользователя</mat-label>
+        <mat-form-field class="example-full-width col-9">
             <br />
-            <input name="userId" class="col-4" ngModel matInput placeholder="Введите нужный ID..." />
+            <input id="userId" name="userId" class="col-7" ngModel matInput placeholder="ID пользователя" />
         </mat-form-field>
-        <div class="form-group offset-2">
+        <div class="form-group offset-1 col-12">
             <br />
             <mat-radio-group name="sex" ngModel aria-label="Выберите фильтр">
                 <mat-radio-button value="0">Только девушки</mat-radio-button>
                 <br />
                 <mat-radio-button value="1">Только парни</mat-radio-button>
                 <br />
-                <mat-radio-button value="2">Не применять фильтр</mat-radio-button>
+                <mat-radio-button value="2">Без фильтра</mat-radio-button>
                 <br />
             </mat-radio-group>
 
