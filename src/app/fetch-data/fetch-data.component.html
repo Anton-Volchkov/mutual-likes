@@ -1,0 +1,38 @@
+<h1 id="tableLabel">Взаимные лайки</h1>
+
+<p>Узнай, с кем обменивается лайками твой друг или знакомый!</p>
+
+<p class="lead" *ngIf="disabledForm">
+    Ваш запрос обрабатывается... Это может занять довольно длительное время.
+    Пожалуйста, ожидайте. После завершения поиска, данная надпись пропадет и на
+    экране появится результат!
+</p>
+<pre *ngIf="user">{{ user.data }}</pre>
+
+<form class="form" (ngSubmit)="Search(myform)" #myform="ngForm">
+    <mat-form-field class="col-7" appearance="outline">
+        <h1>Введите данные</h1>
+        <mat-form-field class="example-full-width offset-1">
+            <mat-label>ID пользователя</mat-label>
+            <br />
+            <input name="userId" class="col-4" ngModel matInput placeholder="Введите нужный ID..." />
+        </mat-form-field>
+        <div class="form-group offset-2">
+            <br />
+            <mat-radio-group name="sex" ngModel aria-label="Выберите фильтр">
+                <mat-radio-button value="0">Только девушки</mat-radio-button>
+                <br />
+                <mat-radio-button value="1">Только парни</mat-radio-button>
+                <br />
+                <mat-radio-button value="2">Не применять фильтр</mat-radio-button>
+                <br />
+            </mat-radio-group>
+
+            <br />
+            <br />
+        </div>
+        <button class="btn btn-warning btn-lg btn-block" type="submit" [disabled]="disabledForm">
+            Начать поиск
+        </button>
+    </mat-form-field>
+</form>
