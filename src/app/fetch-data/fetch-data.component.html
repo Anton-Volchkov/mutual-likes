@@ -1,10 +1,10 @@
 <br>
 
-<div style = "text-align:center">
+<div style="text-align:center">
     <h1>Узнай, с кем обменивается лайками твой друг или знакомый!</h1>
 </div>
 
-<div style ="text-align:center;">
+<div style="text-align:center;">
     <p class="lead" *ngIf="disabledForm">
         Ваш запрос обрабатывается... Это может занять довольно длительное время.
         Пожалуйста, ожидайте. После завершения поиска, данная надпись пропадет и на
@@ -12,11 +12,33 @@
     </p>
 </div>
 
-<pre *ngIf="user">
-    <h3>
-        <span>{{ user.data }}</span>
-    </h3>
- </pre>
+<div *ngIf="users">
+
+    <div *ngIf="!users[0].additionalData; else elseBlock">
+        <span>Пользователь: {{users[0].userName}}</span>
+        <br>
+        <br>
+        <span style="margin-left: 20px;">Взаинмые лайки найдены со следующими пользователями:</span>
+        <br>
+        <div *ngFor="let user of users.slice(1)">
+            <a style="margin-left: 50px;" target="_blank" href="https://vk.com/id{{user.userId}}">
+                {{user.userName}}
+            </a>
+        </div>
+    </div>
+
+    <ng-template #elseBlock>
+        <div>
+            Пользователь: {{users[0].userName}}
+            <br>
+            <br>
+            {{users[0].additionalData}}
+            <br>
+        </div>
+    </ng-template>
+
+</div>
+
 
 <br>
 
@@ -25,7 +47,7 @@
         <h1>Введите данные</h1>
         <mat-form-field class="example-full-width col-12">
             <br />
-            <input type="number" id="userId" matInput name="userId"  ngModel placeholder="ID пользователя" />
+            <input type="number" [disabled]="disabledForm" id="userId" matInput name="userId" ngModel placeholder="ID пользователя" />
         </mat-form-field>
         <div class="form-group offset-1 col-12">
             <br />

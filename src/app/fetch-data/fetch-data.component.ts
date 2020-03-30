@@ -1,40 +1,43 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { NgForm, NgModel} from '@angular/forms';
-import { HubConnection, HubConnectionBuilder,HubConnectionState,LogLevel} from '@microsoft/signalr';
-import * as signalR from '@microsoft/signalr';
+import { Component, Inject, OnInit } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
+import { NgForm, NgModel } from "@angular/forms";
+import {
+  HubConnection,
+  HubConnectionBuilder,
+  HubConnectionState,
+  LogLevel
+} from "@microsoft/signalr";
+import * as signalR from "@microsoft/signalr";
 
 @Component({
-  selector: 'app-fetch-data',
-  templateUrl: './fetch-data.component.html'
+  selector: "app-fetch-data",
+  templateUrl: "./fetch-data.component.html"
 })
 export class FetchDataComponent implements OnInit {
- 
   public _hubConnection: HubConnection;
-  public user:User;
-  public disabledForm:boolean = false;
-  constructor(private http: HttpClient,  @Inject('BASE_URL') private baseUrl: string) {
-   
-  }
+  public users: User[];
+  public disabledForm: boolean = false;
+  constructor(
+    private http: HttpClient,
+    @Inject("BASE_URL") private baseUrl: string
+  ) {}
 
-  ngOnInit()
-  {
+  ngOnInit() {
     this.createConnection();
     this.registerOnServerEvents();
     this.startConnection();
   }
 
   private createConnection() {
-    //https://localhost:44358/server
+    // https://localhost:44358/server
     this._hubConnection = new HubConnectionBuilder()
-      .withUrl('https://mutual-like-server.herokuapp.com/server', {
+      .withUrl("https://mutual-like-server.herokuapp.com/server", {
         skipNegotiation: true,
         transport: signalR.HttpTransportType.WebSockets
       })
       .withAutomaticReconnect()
       .configureLogging(LogLevel.Information)
       .build();
-
   }
 
   private startConnection() {
@@ -44,54 +47,47 @@ export class FetchDataComponent implements OnInit {
 
     this._hubConnection.start().then(
       () => {
-        console.log('Hub connection started!');
+        console.log("Hub connection started!");
       },
       error => console.error(error)
     );
   }
 
   private registerOnServerEvents(): void {
-   
-    this._hubConnection.on('SendToCaller', (data: User) => {
-    
-     this.user = data;
-     this.disabledForm = false;
+    this._hubConnection.on("SendToCaller", (data: User[]) => {
+      console.log(data);
+      this.users = data;
+      this.disabledForm = false;
     });
-
   }
 
+  Search(Form: NgForm) {
+    if (!Form.valid) {
+      alert("Не все данные введены!");
+      return;
+    }
 
-  Search(Form:NgForm)
- {
+    this.users = null;
+    var data = Form.value;
 
-   if(!Form.valid)
-   {
-     alert("Не все данные введены!");
-     return;
-   }
-   var data = Form.value;
-  
-   if(!data.sex)
-   {
-     alert("Вы не указали фильтр!");
-     return;
-   }
+    if (!data.sex) {
+      alert("Вы не указали фильтр!");
+      return;
+    }
 
-   this._hubConnection
-   .invoke('GetMutualLikes', data.userId.toString(),data.sex)
-   .catch(err => {
-     this.disabledForm = false;
-    console.error(err)
-  });
+    this._hubConnection
+      .invoke("GetMutualLikes", data.userId.toString(), data.sex)
+      .catch(err => {
+        this.disabledForm = false;
+        console.error(err);
+      });
 
-   this.disabledForm = true;
- 
- }
+    this.disabledForm = true;
+  }
 }
 
- 
 interface User {
-  data: string;
-  firstName:string;
-  lastName:string;
+  userName: string;
+  userId: number;
+  additionalData: string;
 }
