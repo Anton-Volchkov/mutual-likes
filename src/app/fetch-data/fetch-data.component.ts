@@ -25,8 +25,9 @@ export class FetchDataComponent implements OnInit {
   }
 
   private createConnection() {
+    //https://localhost:44358/server
     this._hubConnection = new HubConnectionBuilder()
-      .withUrl( 'https://localhost:44358/server', {
+      .withUrl('https://mutual-like-server.herokuapp.com/', {
         skipNegotiation: true,
         transport: signalR.HttpTransportType.WebSockets
       })
@@ -51,7 +52,7 @@ export class FetchDataComponent implements OnInit {
 
   private registerOnServerEvents(): void {
    
-    this._hubConnection.on('sendToAll', (data: User) => {
+    this._hubConnection.on('SendToCaller', (data: User) => {
     
      this.user = data;
      this.disabledForm = false;
@@ -62,8 +63,7 @@ export class FetchDataComponent implements OnInit {
 
   Search(Form:NgForm)
  {
-  
-  console.log(Form.value);
+
    if(!Form.valid)
    {
      alert("Не все данные введены!");
@@ -71,7 +71,6 @@ export class FetchDataComponent implements OnInit {
    }
    var data = Form.value;
   
-   console.log(data.userId);
    if(!data.sex)
    {
      alert("Вы не указали фильтр!");
@@ -79,8 +78,11 @@ export class FetchDataComponent implements OnInit {
    }
 
    this._hubConnection
-   .invoke('SendToCaller', data.userId,data.sex)
-   .catch(err => console.error(err));
+   .invoke('GetMutualLikes', data.userId.toString(),data.sex)
+   .catch(err => {
+     this.disabledForm = false;
+    console.error(err)
+  });
 
    this.disabledForm = true;
  

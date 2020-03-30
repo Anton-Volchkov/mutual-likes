@@ -4,13 +4,19 @@
     <h1>Узнай, с кем обменивается лайками твой друг или знакомый!</h1>
 </div>
 
+<div style ="text-align:center;">
+    <p class="lead" *ngIf="disabledForm">
+        Ваш запрос обрабатывается... Это может занять довольно длительное время.
+        Пожалуйста, ожидайте. После завершения поиска, данная надпись пропадет и на
+        экране появится результат!
+    </p>
+</div>
 
-<p class="lead" *ngIf="disabledForm">
-    Ваш запрос обрабатывается... Это может занять довольно длительное время.
-    Пожалуйста, ожидайте. После завершения поиска, данная надпись пропадет и на
-    экране появится результат!
-</p>
-<pre *ngIf="user">{{ user.data }}</pre>
+<pre *ngIf="user">
+    <h3>
+        <span>{{ user.data }}</span>
+    </h3>
+ </pre>
 
 <br>
 <br>
@@ -19,7 +25,7 @@
         <h1>Введите данные</h1>
         <mat-form-field class="example-full-width col-9">
             <br />
-            <input id="userId" name="userId" class="col-7" ngModel matInput placeholder="ID пользователя" />
+            <input type="number" id="userId" matInput name="userId" class="col-7" ngModel placeholder="ID пользователя" />
         </mat-form-field>
         <div class="form-group offset-1 col-12">
             <br />
