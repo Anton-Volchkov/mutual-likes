@@ -47,11 +47,12 @@
         <h1>Введите данные</h1>
         <mat-form-field class="example-full-width col-12">
             <br />
-            <input type="number" [disabled]="disabledForm" id="userId" matInput name="userId" ngModel placeholder="ID пользователя" />
+            <input type="number" [disabled]="disabledForm" id="userId" matInput name="userId" ngModel
+                placeholder="ID пользователя" />
         </mat-form-field>
         <div class="form-group offset-1 col-12">
             <br />
-            <mat-radio-group name="sex" ngModel aria-label="Выберите фильтр">
+            <mat-radio-group [disabled]="disabledForm" name="sex" ngModel aria-label="Выберите фильтр">
                 <mat-radio-button value="0">Только девушки</mat-radio-button>
                 <br />
                 <mat-radio-button value="1">Только парни</mat-radio-button>
