@@ -17,12 +17,24 @@ export class FetchDataComponent implements OnInit {
   public _hubConnection: HubConnection;
   public users: User[];
   public disabledForm: boolean = false;
-  constructor(
-    private http: HttpClient,
-    @Inject("BASE_URL") private baseUrl: string
-  ) {}
+  constructor(private http: HttpClient, @Inject("BASE_URL") private baseUrl: string) {
+
+    //Нужно чтобы будить сервер
+    fetch("https://mutual-like-server.herokuapp.com/")
+    .then(response => {
+      console.log("Send Request on server");
+    })
+    .catch(data => {
+      console.log("Error request on server");
+    });
+
+
+  }
 
   ngOnInit() {
+
+  
+
     this.createConnection();
     this.registerOnServerEvents();
     this.startConnection();
