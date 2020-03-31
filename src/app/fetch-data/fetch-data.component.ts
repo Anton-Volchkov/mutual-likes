@@ -14,27 +14,19 @@ import * as signalR from "@microsoft/signalr";
   templateUrl: "./fetch-data.component.html"
 })
 export class FetchDataComponent implements OnInit {
+  public serverRunningStatus: boolean;
   public _hubConnection: HubConnection;
   public users: User[];
-  public disabledForm: boolean = false;
-  constructor(private http: HttpClient, @Inject("BASE_URL") private baseUrl: string) {
-
-    //Нужно чтобы будить сервер
-    fetch("https://mutual-like-server.herokuapp.com/")
-    .then(response => {
-      console.log("Send Request on server");
-    })
-    .catch(data => {
-      console.log("Error request on server");
-    });
-
-
+  public disabledForm: boolean;
+  constructor(
+    private http: HttpClient,
+    @Inject("BASE_URL") private baseUrl: string
+  ) {
+    this.disabledForm = true;
+    this.serverRunningStatus = false;
   }
 
   ngOnInit() {
-
-  
-
     this.createConnection();
     this.registerOnServerEvents();
     this.startConnection();
@@ -60,6 +52,8 @@ export class FetchDataComponent implements OnInit {
     this._hubConnection.start().then(
       () => {
         console.log("Hub connection started!");
+        this.disabledForm = false;
+        this.serverRunningStatus = true;
       },
       error => console.error(error)
     );
@@ -67,7 +61,6 @@ export class FetchDataComponent implements OnInit {
 
   private registerOnServerEvents(): void {
     this._hubConnection.on("SendToCaller", (data: User[]) => {
-      console.log(data);
       this.users = data;
       this.disabledForm = false;
     });
