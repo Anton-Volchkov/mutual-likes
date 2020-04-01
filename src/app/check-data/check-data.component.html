@@ -1,14 +1,14 @@
 <br>
 
 <div style="text-align:center">
-    <h1>Проверь, проверяли ли лайки пользователя в нашем сервисе!</h1>
+    <h1>Проверь, искали ли взаимные лайки пользователя в нашем сервисе!</h1>
 </div>
 
 <div style="text-align:center;">
   <div *ngIf="user">
     <div *ngIf="user.userChecked; else elseBlock">
-        <span style="color: green;">
-            Данного пользователя проверяли на лайки!
+        <span style="color: green; font-size: 1.4em;">
+           У данного пользователя искали взаимные лайки!
 
             <br>
 
@@ -18,7 +18,7 @@
     </div>
     <ng-template #elseBlock>
         <span style="color: crimson;">
-            Данного пользователя не проверяли на лайки!
+            У данного пользователя не искали взаимные лайки!
         </span>
     </ng-template>
   </div>
