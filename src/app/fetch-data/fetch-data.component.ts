@@ -67,13 +67,22 @@ export class FetchDataComponent implements OnInit {
   }
 
   Search(Form: NgForm) {
+    
     if (!Form.valid) {
       alert("Не все данные введены!");
       return;
     }
 
-    this.users = null;
     var data = Form.value;
+
+    if(data.userId < 1)
+    {
+     alert("Неверный ID");
+     return;
+    }
+
+    this.users = null;
+   
 
     if (!data.sex) {
       alert("Вы не указали фильтр!");
