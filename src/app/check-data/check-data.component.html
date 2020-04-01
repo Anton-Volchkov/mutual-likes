@@ -5,23 +5,24 @@
 </div>
 
 <div style="text-align:center;">
-  <div *ngIf="user">
-    <div *ngIf="user.userChecked; else elseBlock">
-        <span style="color: green; font-size: 1.4em;">
-           У данного пользователя искали взаимные лайки!
+    <div *ngIf="user">
+        <span style="font-size: 1.5em;">{{user.fullUserName}}</span>
+        <div *ngIf="user.userChecked; else elseBlock">
+            <span style="color: green; font-size: 1.4em;">
+                У данного пользователя искали взаимные лайки!
 
-            <br>
+                <br>
 
-            <span>Время последней проверки: {{user.dataLastChecked}}</span>
+                <span>Время последней проверки: {{user.dataLastChecked}}</span>
 
-        </span>
+            </span>
+        </div>
+        <ng-template #elseBlock>
+            <span style="color: crimson;">
+                У данного пользователя не искали взаимные лайки!
+            </span>
+        </ng-template>
     </div>
-    <ng-template #elseBlock>
-        <span style="color: crimson;">
-            У данного пользователя не искали взаимные лайки!
-        </span>
-    </ng-template>
-  </div>
     <p class="lead" *ngIf="disabledForm">
         Ваш запрос обрабатывается...
         Пожалуйста, ожидайте. После завершения поиска, данная надпись пропадет и на

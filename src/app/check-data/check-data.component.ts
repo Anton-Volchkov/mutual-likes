@@ -39,4 +39,5 @@ interface UserData
   userId:number;
   userChecked:boolean;
   dataLastChecked:string;
+  fullUserName:string;
 }
