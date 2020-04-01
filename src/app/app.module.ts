@@ -12,12 +12,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import { CheckDataComponent } from './check-data/check-data.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     FetchDataComponent,
-    NavMenuComponent
+    NavMenuComponent,
+    CheckDataComponent
   ],
   imports: [
     MatFormFieldModule,
@@ -29,6 +31,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
     RouterModule.forRoot([
       { path: '', component: FetchDataComponent, pathMatch: 'full' },
       { path: 'fetch-data', component: FetchDataComponent },
+      { path: 'check-data', component: CheckDataComponent },
     ]),
     BrowserAnimationsModule
   ],

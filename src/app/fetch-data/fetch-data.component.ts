@@ -33,7 +33,7 @@ export class FetchDataComponent implements OnInit {
   }
 
   private createConnection() {
-    // https://localhost:44358/server
+    // https://localhost:44358/server  https://mutual-like-server.herokuapp.com/server
     this._hubConnection = new HubConnectionBuilder()
       .withUrl("https://mutual-like-server.herokuapp.com/server", {
         skipNegotiation: true,

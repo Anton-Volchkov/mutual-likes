@@ -1,0 +1,48 @@
+<br>
+
+<div style="text-align:center">
+    <h1>Проверь, проверяли ли лайки пользователя в нашем сервисе!</h1>
+</div>
+
+<div style="text-align:center;">
+  <div *ngIf="user">
+    <div *ngIf="user.userChecked; else elseBlock">
+        <span style="color: green;">
+            Данного пользователя проверяли на лайки!
+
+            <br>
+
+            <span>Время последней проверки: {{user.dataLastChecked}}</span>
+
+        </span>
+    </div>
+    <ng-template #elseBlock>
+        <span style="color: crimson;">
+            Данного пользователя не проверяли на лайки!
+        </span>
+    </ng-template>
+  </div>
+    <p class="lead" *ngIf="disabledForm">
+        Ваш запрос обрабатывается...
+        Пожалуйста, ожидайте. После завершения поиска, данная надпись пропадет и на
+        экране появится результат!
+    </p>
+</div>
+
+
+
+<br>
+
+<form class="form col-12" (ngSubmit)="Search(myform)" #myform="ngForm">
+    <mat-form-field class="col-12" appearance="outline">
+        <h1>Введите данные</h1>
+        <mat-form-field class="example-full-width col-12">
+            <br />
+            <input type="number" [disabled]="disabledForm" id="userId" matInput name="userId" ngModel
+                placeholder="ID пользователя" />
+        </mat-form-field>
+        <button class="btn btn-info btn-lg btn-block" type="submit" [disabled]="disabledForm">
+            Проверить
+        </button>
+    </mat-form-field>
+</form>
