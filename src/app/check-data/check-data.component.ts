@@ -45,7 +45,7 @@ export class CheckDataComponent implements OnInit {
         },
         error => {
           this.disabledForm = false;
-          alert("Что-то пошло не так! Произошла ошибка!");
+          alert("Что-то пошло не так! Произошла ошибка! Повторите свой запрос через пару минут!");
         }
       );
   }
