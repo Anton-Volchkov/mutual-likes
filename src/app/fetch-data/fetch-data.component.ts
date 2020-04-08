@@ -73,7 +73,6 @@ export class FetchDataComponent implements OnInit {
       return;
     }
 
-    console.log(Form.value);
     var data = Form.value;
 
     if(data.userId < 1)
